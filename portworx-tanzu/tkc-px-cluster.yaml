@@ -1,0 +1,48 @@
+kind: StorageCluster
+apiVersion: core.libopenstorage.org/v1
+metadata:
+  name: tkc-cluster01
+  namespace: kube-system
+  annotations:
+    portworx.io/install-source: "https://edge-install.portworx.com/?operator=true&mc=false&kbver=&b=true&vsp=true&vc=cs1vc1.fsa.lab&vcp=443&ds=tkg-vvols&s=%22type%3Dthin%2Csize%3D150%22&c=tkc-cluster01&stork=true&csi=true&mon=true&st=k8s&e=REGISTRY_USER%3Dpwxdockerexternal%2CREGISTRY_PASS%3DportworXbypurE&promop=true"
+    portworx.io/arcus-location: "internal"
+spec:
+  image: portworx/oci-monitor:ab10053_171d0ba
+  imagePullPolicy: Always
+  kvdb:
+    internal: true
+  cloudStorage:
+    deviceSpecs:
+    - sc=tkg-vvols,size=150
+    - sc=tkg-vvols,size=150
+  secretsProvider: k8s
+  userInterface: 
+    enabled: true
+  stork:
+    enabled: true
+    args:
+      webhook-controller: "true"
+  autopilot:
+    enabled: true
+    providers:
+    - name: default
+      type: prometheus
+      params:
+        url: http://px-prometheus:9090
+  monitoring:
+    telemetry:
+      enabled: true
+    prometheus:
+      enabled: true
+      exportMetrics: true
+  featureGates:
+    CSI: "true"
+  env:
+  - name: DEFAULT_OSB_URL
+    value: "https://master-staging.portworx.dev/osb/billing/v1/register"
+  - name: ENABLE_CSI_DRIVE
+    value: "true"
+  - name: "REGISTRY_USER"
+    value: "pwxdockerexternal"
+  - name: "REGISTRY_PASS"
+    value: "portworXbypurE"
