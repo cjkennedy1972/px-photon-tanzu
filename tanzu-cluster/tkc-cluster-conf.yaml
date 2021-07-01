@@ -1,0 +1,31 @@
+apiVersion: run.tanzu.vmware.com/v1alpha1
+kind: TanzuKubernetesCluster
+metadata:
+  name: tkc-cluster01
+  namespace: portworx
+spec:
+  topology:
+    controlPlane:
+      count: 3
+      class: tkc-control-plane
+      storageClass: tanzu-vmfs
+      volumes:
+        - name: etcd
+          mountPath: /var/lib/etcd
+          capacity:
+            storage: 10Gi
+    workers:
+      count: 3
+      class: tkc-workers
+      storageClass: tanzu-vmfs
+      volumes:
+        - name: containerd
+          mountPath: /var/lib/containerd
+          capacity:
+            storage: 16Gi
+  settings:
+    network:
+      cni:
+        name: calico
+  distribution:
+    version: v1.20
