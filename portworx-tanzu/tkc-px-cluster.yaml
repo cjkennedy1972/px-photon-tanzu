@@ -4,10 +4,10 @@ metadata:
   name: tkc-cluster01
   namespace: kube-system
   annotations:
-    portworx.io/install-source: "https://edge-install.portworx.com/?operator=true&mc=false&kbver=&b=true&vsp=true&vc=cs1vc1.fsa.lab&vcp=443&ds=tkg-vvols&s=%22type%3Dthin%2Csize%3D150%22&c=tkc-cluster01&stork=true&csi=true&mon=true&st=k8s&e=REGISTRY_USER%3Dpwxdockerexternal%2CREGISTRY_PASS%3DportworXbypurE&promop=true"
+    portworx.io/install-source: "https://edge-install.portworx.com/2.8.0?operator=true&mc=false&kbver=&b=true&vsp=true&vc=cs1vc1.fsa.lab&vcp=443&ds=tkg-vvols&s=%22type%3Dthin%2Csize%3D150%22&c=tkc-cluster01&stork=true&csi=true&mon=true&st=k8s&e=REGISTRY_USER%3Dpwxdockerexternal%2CREGISTRY_PASS%3DportworXbypurE&promop=true"
     portworx.io/arcus-location: "internal"
 spec:
-  image: portworx/oci-monitor:ab10053_171d0ba
+  image: portworx/oci-monitor:2.8.0-beta
   imagePullPolicy: Always
   kvdb:
     internal: true
